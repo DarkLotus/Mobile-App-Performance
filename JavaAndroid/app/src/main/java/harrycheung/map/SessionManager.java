@@ -47,11 +47,25 @@ public class SessionManager {
     }
   }
 
+  /*Re use the same point*/
+  Point point,temppoint;
+
   public void gps(double latitude, double longitude, double speed,
       double bearing, double horizontalAccuracy,
       double verticalAccuracy, double timestamp) {
-    Point point = new Point(latitude, longitude, speed, bearing,
+    if(temppoint == null)
+         point = new Point(latitude, longitude, speed, bearing,
         horizontalAccuracy, verticalAccuracy, timestamp);
+    else {
+      point = temppoint;
+      point.latitude = latitude;
+      point.longitude = longitude;
+      point.speed = speed;
+      point.bearing = bearing;
+      point.hAccuracy = horizontalAccuracy;
+      point.vAccuracy = verticalAccuracy;
+      point.timestamp = timestamp;
+    }
     if (lastPoint != null) {
       Point cross = nextGate.crossed(lastPoint, point);
       if (cross != null) {
@@ -110,6 +124,7 @@ public class SessionManager {
       point.setLapTime(currentLap.startTime, splitStartTime);
     }
     currentLap.add(point);
+    temppoint = lastPoint;
     lastPoint = point;
   }
 
