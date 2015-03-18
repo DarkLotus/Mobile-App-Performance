@@ -4,11 +4,8 @@
 
 package harrycheung.map;
 
-import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+
 
 public final class Lap {
 
@@ -37,6 +34,7 @@ public final class Lap {
     this.splits = new double[track.numSplits()];
     this.outLap = lapNumber == 0;
   }
+  
   public void add(Point point) {
     duration = point.lapTime;
     distance = point.lapDistance;
